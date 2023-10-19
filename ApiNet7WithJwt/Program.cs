@@ -42,9 +42,25 @@ builder.Services.AddAuthentication(config =>
     ValidateIssuer = false,
     ValidateAudience = false,
     ValidateLifetime = true,
-    ClockSkew = TimeSpan.Zero, // No debe existir deviacion en el tiempo de vida del token
+    ClockSkew = TimeSpan.Zero, // No debe existir desviacion en el tiempo de vida del token
   };
 });
+
+// Enable Cors Pt1
+var provider = builder.Services.BuildServiceProvider();
+var configuration = provider.GetRequiredService<IConfiguration>();
+
+builder.Services.AddCors(options =>
+{
+  var frontEndUrl = configuration.GetValue<string>("FrontEndUrl");
+
+
+  options.AddDefaultPolicy(builder =>
+  {
+    builder.WithOrigins(frontEndUrl).AllowAnyHeader().AllowAnyMethod();
+  });
+});
+
 
 var app = builder.Build();
 
@@ -54,6 +70,9 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
+
+// Enable Cors Pt2
+app.UseCors();
 
 // Add Jwt Pt2
 app.UseAuthentication();

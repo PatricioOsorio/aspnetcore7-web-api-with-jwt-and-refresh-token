@@ -4,9 +4,11 @@ using ApiNet7WithJwt.Models.Custom;
 using ApiNet7WithJwt.Services;
 using System.IdentityModel.Tokens.Jwt;
 using Azure.Core;
+using Microsoft.AspNetCore.Cors;
 
 namespace ApiNet7WithJwt.Controllers
 {
+  [EnableCors()]
   [Route("api/[controller]")]
   [ApiController]
   public class UserController : ControllerBase

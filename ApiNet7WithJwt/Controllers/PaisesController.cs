@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiNet7WithJwt.Controllers
 {
+  [EnableCors()]
   [Route("api/[controller]")]
   [ApiController]
   public class PaisesController : ControllerBase
